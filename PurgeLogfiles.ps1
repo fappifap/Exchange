@@ -1,9 +1,10 @@
 
 
 # Task erstellen
-$action = New-ScheduledTaskAction -Execute "C:\Path\to\YourScript.ps1" -Argument "OptionalArguments"
-$trigger = New-ScheduledTaskTrigger -Daily -At "3:00AM"  # Tägliche Ausführung um 3 Uhr morgens
-Register-ScheduledTask -TaskName "YourTaskName" -Action $action -Trigger $trigger -Description "Your task description" -RunLevel Highest
+#$action = New-ScheduledTaskAction -Execute "C:\#System\PurgeLogfiles.ps1" -Argument "-DaysToKeep 1"
+#$trigger = New-ScheduledTaskTrigger -Daily -At "3:00AM"  # Tägliche Ausführung um 3 Uhr morgens
+#$principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+#Register-ScheduledTask -TaskName "PurgeExchangeLogfiles" -Action $action -Trigger $trigger -Description "Purge Exchange Server logfiles" -Principal $principal
 
 
 
