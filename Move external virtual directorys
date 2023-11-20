@@ -1,7 +1,7 @@
 $servername = "srvmail01" #Neuer Server eingeben
-$internalhostname = "mobile.knecht.de"
-$externalhostname = "mobile.knecht.de"
-$autodiscoverhostname = "autodiscover.knecht.de"
+$internalhostname = "dsdfasfdasdf.dd.de"
+$externalhostname = "dsdfasfdasdf.dd.de"
+$autodiscoverhostname = "autodiscover.dd.de"
 $owainturl = "https://" + "$internalhostname" + "/owa"
 $owaexturl = "https://" + "$externalhostname" + "/owa"
 $ecpinturl = "https://" + "$internalhostname" + "/ecp"
