@@ -44,7 +44,7 @@
     - AciveDirectory PowerShell module
     - Exchange 2013+ Management Shell
 
-
+Install-Module -Name GlobalFunctions
 .\Purge-LogFiles.ps1 -DaysToKeep 1 -SendMail -MailFrom postmaster@mcsmemail.de -MailTo it@mcsmemail.de -MailServer mail.mcsmemail.de
 
     Revision History 
