@@ -1,19 +1,25 @@
+#
+# Moving all sorcecontent from a databse t an other database
+#
+#
+#
 
 
 $DatabaseSource = "Sorcedatase"
-$DatabaseDestination = ""
+$DatabaseDestination = "Destinationdatabase"
 
 
 #Arbitation databse
 get-mailbox -database $DatabaseSource  -Arbitration | New-MoveRequest -TargetDatabase $DatabaseDestination
 #Discovery Mailbox
-get-mailbox -Database “database01” -RecipientTypeDetails DiscoveryMailbox | New-MoveRequest -TargetDatabase database1
-get-mailbox -Database “Mailbox_Database_4” -RecipientTypeDetails DiscoveryMailbox | New-MoveRequest -TargetDatabase database02
+get-mailbox -Database $DatabaseSource -RecipientTypeDetails DiscoveryMailbox | New-MoveRequest -TargetDatabase $DatabaseDestination
+#User tool mailboxes
+Get-Mailbox -database $DatabaseSource -RecipientTypeDetails SharedMailbox, RoomMailbox, EquipmentMailbox | New-MoveRequest -TargetDatabase $DatabaseDestination
+#User mailboxes
+Get-Mailbox -database $DatabaseSource | New-MoveRequest -TargetDatabase $DatabaseDestination
+#Public Folder
+get-mailbox -Database $DatabaseSource -PublicFolder | New-MoveRequest -TargetDatabase $DatabaseDestination 
+#Audit log
+get-mailbox -Database $DatabaseSource -AuditLog | New-MoveRequest -TargetDatabase $DatabaseDestination
 
-Get-Mailbox -Server OK-Exchange -RecipientTypeDetails SharedMailbox, RoomMailbox, EquipmentMailbox | New-MoveRequest -TargetDatabase database02  
-get-mailbox -Database database01 -RecipientTypeDetails Shared, Roommailbox, EquipmentMailbox | New-MoveRequest -TargetDatabase database1 
-get-mailbox -Database database02 -PublicFolder | New-MoveRequest -TargetDatabase 
-
-
-
-get-mailbox -Database database01 -AuditLog | New-MoveRequest -TargetDatabase database1
+get-moverequest
