@@ -1,5 +1,12 @@
 
 
+# Task erstellen
+$action = New-ScheduledTaskAction -Execute "C:\Path\to\YourScript.ps1" -Argument "OptionalArguments"
+$trigger = New-ScheduledTaskTrigger -Daily -At "3:00AM"  # Tägliche Ausführung um 3 Uhr morgens
+Register-ScheduledTask -TaskName "YourTaskName" -Action $action -Trigger $trigger -Description "Your task description" -RunLevel Highest
+
+
+
 
 <#
     .SYNOPSIS
