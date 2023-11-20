@@ -5,10 +5,12 @@
 #
 
 
-$DatabaseSource = "Sorcedatase"
-$DatabaseDestination = "Destinationdatabase"
+$DatabaseSource = "MailDB02"
+$DatabaseDestination = "MailDB01"
 
-
+write-Host "Es wird von: " $DatabaseSource "zu:" $DatabaseDestination "kopiert!" -BackgroundColor Green -ForegroundColor Black
+write-Host "Warte 10 Sekunden" -BackgroundColor Green -ForegroundColor Black
+start-sleep -Seconds 10
 #Arbitation databse
 get-mailbox -database $DatabaseSource  -Arbitration | New-MoveRequest -TargetDatabase $DatabaseDestination
 #Discovery Mailbox
@@ -22,4 +24,22 @@ get-mailbox -Database $DatabaseSource -PublicFolder | New-MoveRequest -TargetDat
 #Audit log
 get-mailbox -Database $DatabaseSource -AuditLog | New-MoveRequest -TargetDatabase $DatabaseDestination
 
-get-moverequest
+
+write-host "Lösche Mailboximport Requests" -ForegroundColor Yellow 
+Get-MailboxImportRequest -Status Completed | Remove-MailboxImportRequest -force
+Get-MailboxImportRequest -Status Failed | Remove-MailboxImportRequest  -force
+Get-MailboxImportRequest -Status CompletedWithWarning | Remove-MailboxImportRequest -force
+
+
+$Moverequest = Get-MoveRequest
+
+while ((Get-Moverequest | where-object {$PSItem.Status -ne "Completed" })){
+    write-host "Moverequests in action ... Wait" -ForegroundColor Yellow
+    start-sleep -Seconds 60
+}
+
+
+get-moverequest | Remove-MoveRequest -Force
+write-host "Lösche Quelldatenbank ab"
+start-sleep -Seconds 30
+Get-MailboxDatabase -Identity $DatabaseSource | Remove-MailboxDatabase 
