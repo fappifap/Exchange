@@ -32,7 +32,7 @@ param(
 write-Host "Es wird von: " $DatabaseSource "zu:" $DatabaseDestination "kopiert!" -BackgroundColor Green -ForegroundColor Black
 $Antwort = Read-Host -Prompt "Möchtest du fortfahren? (Ja/Nein)"
 
-if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "Y" -or $antwort -eq "y") {
+if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "J" -or $antwort -eq "j") {
 	#Arbitation databse
 	get-mailbox -database $DatabaseSource  -Arbitration | New-MoveRequest -TargetDatabase $DatabaseDestination
 	#Discovery Mailbox
@@ -59,7 +59,7 @@ else {
 write-Host "Achtung die ImportRequests werden gelöscht" -BackgroundColor Green -ForegroundColor Black
 $Antwort = Read-Host -Prompt "Möchtest du fortfahren? (Ja/Nein)"
 
-if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "Y" -or $antwort -eq "y") {
+if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "J" -or $antwort -eq "j") {
 	Get-MailboxImportRequest -Status Completed | Remove-MailboxImportRequest -force
 	Get-MailboxImportRequest -Status Failed | Remove-MailboxImportRequest  -force
 	Get-MailboxImportRequest -Status CompletedWithWarning | Remove-MailboxImportRequest -force
@@ -89,7 +89,7 @@ start-sleep -Seconds 30
 write-Host "Achtung die Datenbank wird gelöscht" -BackgroundColor Green -ForegroundColor Black
 $Antwort = Read-Host -Prompt "Möchtest du fortfahren? (Ja/Nein)"
 
-if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "Y" -or $antwort -eq "y") {
+if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "J" -or $antwort -eq "j") {
 	Get-MailboxDatabase -Identity $DatabaseSource | Remove-MailboxDatabase 
 	}
 elseif ($antwort -eq "Nein" -or $antwort -eq "nein" -or $antwort -eq "N" -or $antwort -eq "n" -or [string]::IsNullOrEmpty($antwort)) {
