@@ -10,6 +10,7 @@
     Revision History 
     -------------------------------------------------------------------------------- 
     1.0     Initial release 
+    1.1     small fixes
 
     .PARAMETER DatabaseSource
     The Database to delete
@@ -24,14 +25,14 @@
 #>
 
 param(
-    [string]$DatabaseSource=(Read-Host "Bitte Quelldataenbank eingeben"),
+    [string]$DatabaseSource=(Read-Host "Bitte Quelldatenbank eingeben"),
     [string]$DatabaseDestination=(Read-Host "Bitte Zieldatenbank eingeben")
 )
 
 write-Host "Es wird von: " $DatabaseSource "zu:" $DatabaseDestination "kopiert!" -BackgroundColor Green -ForegroundColor Black
 $Antwort = Read-Host -Prompt "Möchtest du fortfahren? (Ja/Nein)"
 
-if ($Antwort -eq "Ja" -or $antwort -eq "ja") {
+if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "Y" -or $antwort -eq "y") {
 	#Arbitation databse
 	get-mailbox -database $DatabaseSource  -Arbitration | New-MoveRequest -TargetDatabase $DatabaseDestination
 	#Discovery Mailbox
@@ -55,10 +56,10 @@ else {
 }
 
 
-write-Host "Achtung es werden die ImportRequests gelöscht" -BackgroundColor Green -ForegroundColor Black
+write-Host "Achtung die ImportRequests werden gelöscht" -BackgroundColor Green -ForegroundColor Black
 $Antwort = Read-Host -Prompt "Möchtest du fortfahren? (Ja/Nein)"
 
-if ($Antwort -eq "Ja" -or $antwort -eq "ja") {
+if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "Y" -or $antwort -eq "y") {
 	Get-MailboxImportRequest -Status Completed | Remove-MailboxImportRequest -force
 	Get-MailboxImportRequest -Status Failed | Remove-MailboxImportRequest  -force
 	Get-MailboxImportRequest -Status CompletedWithWarning | Remove-MailboxImportRequest -force
@@ -85,10 +86,10 @@ get-moverequest | Remove-MoveRequest -Force
 write-host "Lösche Quelldatenbank ab"
 start-sleep -Seconds 30
 
-write-Host "Achtung es wird die Datenbank gelöscht" -BackgroundColor Green -ForegroundColor Black
+write-Host "Achtung die Datenbank wird gelöscht" -BackgroundColor Green -ForegroundColor Black
 $Antwort = Read-Host -Prompt "Möchtest du fortfahren? (Ja/Nein)"
 
-if ($Antwort -eq "Ja" -or $antwort -eq "ja") {
+if ($Antwort -eq "Ja" -or $antwort -eq "ja" -or $antwort -eq "Y" -or $antwort -eq "y") {
 	Get-MailboxDatabase -Identity $DatabaseSource | Remove-MailboxDatabase 
 	}
 elseif ($antwort -eq "Nein" -or $antwort -eq "nein" -or $antwort -eq "N" -or $antwort -eq "n" -or [string]::IsNullOrEmpty($antwort)) {
