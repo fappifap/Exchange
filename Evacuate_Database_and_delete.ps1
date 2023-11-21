@@ -1,12 +1,33 @@
-#
-# Moving all sorcecontent from a databse t an other database
-#
-#
-#
+<#
+    .SYNOPSIS
+    Evacuate_Database_and_delete
+    Johannes Schüler
+    https://github.com/DiggaTS/Exchange/blob/61555176b562d0b6b906d36a4c9576bd23cd36a0/Evacuate_Database_and_delete
+    
+    .DESCRIPTION
+	evacuate a databse and delete the database in exchange
 
+    Revision History 
+    -------------------------------------------------------------------------------- 
+    1.0     Initial release 
 
-$DatabaseSource = "MailDB02"
-$DatabaseDestination = "MailDB01"
+    .PARAMETER DatabaseSource
+    The Database to delete
+
+    .PARAMETER DatabaseDestination
+    The Target Database
+
+    .EXAMPLE
+    Evacuate_Database_and_delete database1 database2
+
+    .\Purge-LogFiles -DaysToKeep 7 -Auto
+#>
+
+param(
+    [string]$DatabaseSource=(Read-Host "Bitte Quelldataenbank eingeben"),
+    [string]$DatabaseDestination=(Read-Host "Bitte Zieldatenbank eingeben")
+)
+
 
 write-Host "Es wird von: " $DatabaseSource "zu:" $DatabaseDestination "kopiert!" -BackgroundColor Green -ForegroundColor Black
 write-Host "Warte 10 Sekunden" -BackgroundColor Green -ForegroundColor Black
